@@ -1,0 +1,24 @@
+
+Alias /oauth/index /usr/local/src/mindie-client/indieauth-client-php/index.php
+Alias /oauth/login /usr/local/src/mindie-client/indieauth-client-php/login.php
+Alias /oauth/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect.php
+<LocationMatch /oauth/(index/login/redirect)$ >
+	SetEnv CLIENT_PATH oauth
+	<RequireAll>
+		Require all granted
+	</RequireAll>
+</LocationMatch>
+<Location /oauth/>
+	SetEnv CLIENT_PATH oauth
+	AuthType oauth2
+	AuthName "Hello OAuth"
+	ErrorDocument 401 /oauth/index
+	OAuth2AcceptTokenIn header
+	OAuth2AcceptTokenIn cookie name=oauth_token
+	OAuth2TokenVerify metadata <your idp>/.well-known/oauth-authorization-server introspect.auth=client_secret_basic&client_id=<your host>/oauth/&client_secret=_
+	<RequireAll>
+		Require valid-user
+	</RequireAll>
+</Location>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
