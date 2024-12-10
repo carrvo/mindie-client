@@ -7,11 +7,16 @@ session_start();
 IndieAuth\Client::$clientID = $issuer.'/'.getenv('CLIENT_PATH').'/';
 IndieAuth\Client::$redirectURL = $issuer.'/'.getenv('CLIENT_PATH').'/redirect.php';
 
+$stderr = fopen( 'php://stderr', 'w' );
 list($response, $error) = IndieAuth\Client::complete($_GET);
 
 if($error) {
   echo "<p>Error: ".$error['error']."</p>";
   echo "<p>".$error['error_description']."</p>";
+  trigger_error($error['error'], E_USER_WARNING);
+  fwrite($stderr, $error['error_description']."\n");
+  fwrite($stderr, $error['debug']['response_details']['url']."\n");
+  fwrite($stderr, $error['debug']['response_details']['header']."\n");
 } else {
   // Login succeeded!
   // The library will return the user's profile URL in the property "me"
