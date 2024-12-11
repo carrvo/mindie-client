@@ -15,7 +15,6 @@ Alias /oauth/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect
 	ErrorDocument 401 /oauth/index
 	OAuth2AcceptTokenIn header
 	OAuth2AcceptTokenIn cookie name=oauth_token
-	OAuth2TokenVerify metadata <your idp>/.well-known/oauth-authorization-server introspect.auth=client_secret_basic&client_id=<your host>/oauth/&client_secret=_
 	<RequireAll>
 		Require valid-user
 	</RequireAll>

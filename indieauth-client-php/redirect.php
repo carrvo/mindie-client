@@ -39,6 +39,12 @@ if($error) {
   // The HTTP response code:
   // $response['response_code']
 
+  $metadataendpoint = IndieAuth\Client::discoverMetadataEndpoint($response['me']);
+  if (strpos(file_get_contents("./.htaccess"), $metadataendpoint) === false) {
+    $oauth_token_verify = 'OAuth2TokenVerify metadata '.$metadataendpoint.' introspect.auth=client_secret_basic&client_id='.IndieAuth\Client::$clientID.'&client_secret=_'."\n";
+    file_put_contents("./.htaccess", $oauth_token_verify, FILE_APPEND);
+  }
+
   $auth_redirect = $_COOKIE['auth_redirect'];
   setcookie('auth_redirect', '', -1, '/'.getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
   header('Location: '.$auth_redirect);
