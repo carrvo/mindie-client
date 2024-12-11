@@ -17,7 +17,7 @@ integrity of your system (not grow exponentially in size).
 1. Clone to `/usr/local/src/`
 1. Run `dependencies.bash` to install dependent Ubuntu packages (like Apache HTTPd and PHP).
 1. Run `setup.bash` to setup required directories and files.
-1. Add configuration to your Apache HTTPd configuration (example found [indieauth-client-php.conf.example](indieauth-client-php.conf.example)) replacing `<client>`, `<your idp>`, and `<your host>` throughout
+1. Add configuration to your Apache HTTPd configuration (example found [indieauth-client-php.conf.example](indieauth-client-php.conf.example)) replacing `<client>`, and `<your host>` throughout
     ```
     Alias /<client>/index /usr/local/src/mindie-client/indieauth-client-php/index.php
     Alias /<client>/login /usr/local/src/mindie-client/indieauth-client-php/login.php
@@ -37,7 +37,6 @@ integrity of your system (not grow exponentially in size).
 	    ErrorDocument 401 /<client>/index
 	    OAuth2AcceptTokenIn header
 	    OAuth2AcceptTokenIn cookie name=oauth_token
-	    OAuth2TokenVerify metadata <your idp>/.well-known/oauth-authorization-server introspect.auth=client_secret_basic&client_id=<your host>/<client>/&client_secret=_
 	    <RequireAll>
 		    Require valid-user
 	    </RequireAll>
