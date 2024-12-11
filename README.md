@@ -9,6 +9,9 @@ to facilitate multiple unknown IdPs. **ENSURE** that you do not point any other 
 towards this file or allow input that can result in this file being modified elsewhere.
 Access outside of this module poses a **SECURITY RISK** that can compromise your system.
 
+This file *can and should* be periodically cleared (empty contents) to help the
+integrity of your system (not grow exponentially in size).
+
 ## Setup
 
 1. Clone to `/usr/local/src/`
