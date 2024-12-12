@@ -5,7 +5,7 @@ $issuer = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTT
 
 session_start();
 IndieAuth\Client::$clientID = $issuer.'/'.getenv('CLIENT_PATH').'/';
-IndieAuth\Client::$redirectURL = $issuer.'/'.getenv('CLIENT_PATH').'/redirect.php';
+IndieAuth\Client::$redirectURL = $issuer.'/'.getenv('CLIENT_PATH').'/redirect';
 
 $stderr = fopen( 'php://stderr', 'w' );
 list($response, $error) = IndieAuth\Client::complete($_GET);
