@@ -39,9 +39,21 @@ if($error) {
   // The HTTP response code:
   // $response['response_code']
 
-  $metadataendpoint = IndieAuth\Client::discoverMetadataEndpoint($response['me']);
-  if (strpos(file_get_contents("./.htaccess"), $metadataendpoint) === false) {
-    $oauth_token_verify = 'OAuth2TokenVerify metadata '.$metadataendpoint.' introspect.auth=client_secret_basic&client_id='.IndieAuth\Client::$clientID.'&client_secret=_'."\n";
+  $metadataEndpoint = IndieAuth\Client::discoverMetadataEndpoint($response['me']);
+  if ($metadataEndpoint) {
+    $_SESSION['indieauth_metadata'] = $metadataEndpoint;
+    $issuerEndpoint = self::discoverIssuer($metadataEndpoint);
+    if ($issuerEndpoint instanceof IndieAuth\ErrorResponse) {
+      // handle the error response, array with keys `error` and `error_description`
+      trigger_error('Failed to find metadata endpoint for "' . $response['me'] . '": ' . json_encode($issuerEndpoint->getArray()), E_USER_WARNING);
+      header('HTTP/1.1 422 Unprocessable Content');
+      die('HTTP/1.1 422 Unprocessable Content');
+    }
+
+    $_SESSION['indieauth_issuer'] = $issuerEndpoint;
+  }
+  if (strpos(file_get_contents("./.htaccess"), $metadataEndpoint) === false) {
+    $oauth_token_verify = 'OAuth2TokenVerify metadata '.$metadataEndpoint.' introspect.auth=client_secret_basic&client_id='.IndieAuth\Client::$clientID.'&client_secret=_'."\n";
     file_put_contents("./.htaccess", $oauth_token_verify, FILE_APPEND);
   }
 
