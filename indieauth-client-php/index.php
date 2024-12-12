@@ -8,7 +8,7 @@ setcookie('auth_redirect', $auth_redirect, 0, '/'.getenv('CLIENT_PATH').'/', $_S
 </head>
 <body>
     <form action="/<?php echo getenv('CLIENT_PATH') ?>/login" method="post">
-    <input type="url" name="url">
+    <input type="url" name="url" placeholder="IndieAuth URI" required autofocus>
     <input type="submit" value="Log In">
   </form>
 </body>
