@@ -22,12 +22,6 @@ integrity of your system (not grow exponentially in size).
     Alias /<client>/index /usr/local/src/mindie-client/indieauth-client-php/index.php
     Alias /<client>/login /usr/local/src/mindie-client/indieauth-client-php/login.php
     Alias /<client>/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect.php
-    <LocationMatch /<client>/(index/login/redirect)$ >
-	    SetEnv CLIENT_PATH <client>
-	    <RequireAll>
-		    Require all granted
-	    </RequireAll>
-    </LocationMatch>
     <Directory /usr/local/src/mindie-client/indieauth-client-php/>
 	    AllowOverride AuthConfig
     </Directory>
@@ -44,6 +38,13 @@ integrity of your system (not grow exponentially in size).
 		    Require valid-user
 	    </RequireAll>
     </Location>
+    <LocationMatch /<client>/(index/login/redirect)$ >
+	    SetEnv CLIENT_PATH <client>
+	    AuthType None
+	    <RequireAll>
+		    Require all granted
+	    </RequireAll>
+    </LocationMatch>
     ```
 
 This will setup the following endpoints on your Apache server:
