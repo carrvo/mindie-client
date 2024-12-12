@@ -8,7 +8,10 @@ Alias /oauth/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect
 		Require all granted
 	</RequireAll>
 </LocationMatch>
-<Location /oauth/>
+<Directory /usr/local/src/mindie-client/indieauth-client-php/>
+	AllowOverride AuthConfig
+</Directory>
+<Location /oauth/content>
 	SetEnv CLIENT_PATH oauth
 	AuthType oauth2
 	AuthName "Hello OAuth"

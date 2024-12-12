@@ -28,6 +28,9 @@ integrity of your system (not grow exponentially in size).
 		    Require all granted
 	    </RequireAll>
     </LocationMatch>
+    <Directory /usr/local/src/mindie-client/indieauth-client-php/>
+	    AllowOverride AuthConfig
+    </Directory>
     <Location /<client>/>
 	    SetEnv CLIENT_PATH <client>
 	    AuthType oauth2
