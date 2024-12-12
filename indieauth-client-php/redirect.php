@@ -45,13 +45,19 @@ if($error) {
     $issuerEndpoint = self::discoverIssuer($metadataEndpoint);
     if ($issuerEndpoint instanceof IndieAuth\ErrorResponse) {
       // handle the error response, array with keys `error` and `error_description`
-      trigger_error('Failed to find metadata endpoint for "' . $response['me'] . '": ' . json_encode($issuerEndpoint->getArray()), E_USER_WARNING);
-      header('HTTP/1.1 422 Unprocessable Content');
-      die('HTTP/1.1 422 Unprocessable Content');
+      trigger_error('Detected suspicious issuer for "' . $response['me'] . '": ' . json_encode($issuerEndpoint->getArray()), E_USER_WARNING);
+      header('HTTP/1.1 403 Forbidden');
+      die('HTTP/1.1 403 Forbidden: suspicious issuer');
     }
 
     $_SESSION['indieauth_issuer'] = $issuerEndpoint;
   }
+  else {
+    trigger_error('Failed to find metadata endpoint for "' . $response['me'] . '"', E_USER_WARNING);
+    header('HTTP/1.1 422 Unprocessable Content');
+    die('HTTP/1.1 422 Unprocessable Content');
+  }
+  
   if (strpos(file_get_contents("./.htaccess"), $metadataEndpoint) === false) {
     $oauth_token_verify = 'OAuth2TokenVerify metadata '.$metadataEndpoint.' introspect.auth=client_secret_basic&client_id='.IndieAuth\Client::$clientID.'&client_secret=_'."\n";
     file_put_contents("./.htaccess", $oauth_token_verify, FILE_APPEND);
