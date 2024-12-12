@@ -40,7 +40,7 @@ integrity of your system (not grow exponentially in size).
     </Location>
     <LocationMatch /<client>/(index/login/redirect)$ >
 	    SetEnv CLIENT_PATH <client>
-        AuthType None
+	    AuthType None
 	    <RequireAll>
 		    Require all granted
 	    </RequireAll>
