@@ -22,6 +22,7 @@ integrity of your system (not grow exponentially in size).
     Alias /<client>/index /usr/local/src/mindie-client/indieauth-client-php/index.php
     Alias /<client>/login /usr/local/src/mindie-client/indieauth-client-php/login.php
     Alias /<client>/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect.php
+    Alias /<client>/oauth-client-server /usr/local/src/mindie-client/client_id.json.php
     <Directory /usr/local/src/mindie-client/indieauth-client-php/>
 	    AllowOverride AuthConfig
     </Directory>
@@ -38,7 +39,7 @@ integrity of your system (not grow exponentially in size).
 		    Require valid-user
 	    </RequireAll>
     </Location>
-    <LocationMatch /<client>/(index/login/redirect)$ >
+    <LocationMatch /<client>/(index|login|redirect|oauth-client-server)$ >
 	    SetEnv CLIENT_PATH <client>
 	    AuthType None
 	    <RequireAll>
@@ -51,6 +52,7 @@ This will setup the following endpoints on your Apache server:
 - `https://example.com/<client>/index`
 - `https://example.com/<client>/login`
 - `https://example.com/<client>/redirect`
+- `https://example.com/<client>/oauth-client-server`
 
 ### Insecure Configuration
 
@@ -77,7 +79,12 @@ If there are complaints that the issuer does not match, this could be because of
 Set these in Apache HTTPd config.
 
 - `SetEnv CLIENT_PATH <client>` - for your client ID to be `https://example.com/<client>/`
-- `SetEnv CLIENT_SCOPE "profile oauth"` - to set the scopes that will be requested
+- `SetEnv CLIENT_SCOPE "profile oauth"` - *optional* to set the scopes that will be requested
+- `SetEnv CLIENT_HOME <path/to/homepage>"` - *optional* path (relative to `CLIENT_PATH`) for the client's public webpage
+- `SetEnv CLIENT_LOGO <path/to/logo>"` - *optional* path (relative to `CLIENT_PATH`) for the client's public logo image
+- `SetEnv CLIENT_NAME <human friendly>"` - *optional* human friendly name for the IdP to display
+- `SetEnv CLIENT_TOS <path/to/tos>"` - *optional* path (relative to `CLIENT_PATH`) for the client's terms of service
+- `SetEnv CLIENT_POLICY <path/to/policy>"` - *optional* path (relative to `CLIENT_PATH`) for the client's privacy policy document
 
 ### Session Variables
 

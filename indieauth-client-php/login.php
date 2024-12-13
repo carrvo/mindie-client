@@ -14,7 +14,7 @@ session_start();
 // the client ID and and the redirect URL.
 
 // The client ID should be the home page of your app.
-IndieAuth\Client::$clientID = $issuer.'/'.getenv('CLIENT_PATH').'/';
+IndieAuth\Client::$clientID = $issuer.'/'.getenv('CLIENT_PATH').'/oauth-client-server';
 
 // The redirect URL is where the user will be returned to after they approve the request.
 IndieAuth\Client::$redirectURL = $issuer.'/'.getenv('CLIENT_PATH').'/redirect';

@@ -4,7 +4,7 @@ require '/usr/local/lib/indieauth-client-php/vendor/autoload.php';
 $issuer = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
 
 session_start();
-IndieAuth\Client::$clientID = $issuer.'/'.getenv('CLIENT_PATH').'/';
+IndieAuth\Client::$clientID = $issuer.'/'.getenv('CLIENT_PATH').'/oauth-client-server';
 IndieAuth\Client::$redirectURL = $issuer.'/'.getenv('CLIENT_PATH').'/redirect';
 
 $stderr = fopen( 'php://stderr', 'w' );

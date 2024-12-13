@@ -2,6 +2,7 @@
 Alias /oauth/index /usr/local/src/mindie-client/indieauth-client-php/index.php
 Alias /oauth/login /usr/local/src/mindie-client/indieauth-client-php/login.php
 Alias /oauth/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect.php
+Alias /oauth/oauth-client-server /usr/local/src/mindie-client/client_id.json.php
 <Directory /usr/local/src/mindie-client/indieauth-client-php/>
 	AllowOverride AuthConfig
 </Directory>
@@ -18,7 +19,7 @@ Alias /oauth/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect
 		Require valid-user
 	</RequireAll>
 </Location>
-<LocationMatch /oauth/(index/login/redirect)$ >
+<LocationMatch /oauth/(index|login|redirect|oauth-client-server)$ >
 	SetEnv CLIENT_PATH oauth
 	AuthType None
 	<RequireAll>
