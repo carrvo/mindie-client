@@ -38,7 +38,7 @@ integrity of your system (not grow exponentially in size).
 		    Require valid-user
 	    </RequireAll>
     </Location>
-    <LocationMatch /<client>/(index/login/redirect)$ >
+    <LocationMatch /<client>/(index|login|redirect)$ >
 	    SetEnv CLIENT_PATH <client>
 	    AuthType None
 	    <RequireAll>
