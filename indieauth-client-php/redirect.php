@@ -42,7 +42,7 @@ if($error) {
   $metadataEndpoint = IndieAuth\Client::discoverMetadataEndpoint($response['me']);
   if ($metadataEndpoint) {
     $_SESSION['indieauth_metadata'] = $metadataEndpoint;
-    $issuerEndpoint = self::discoverIssuer($metadataEndpoint);
+    $issuerEndpoint = IndieAuth\Client::discoverIssuer($metadataEndpoint);
     if ($issuerEndpoint instanceof IndieAuth\ErrorResponse) {
       // handle the error response, array with keys `error` and `error_description`
       trigger_error('Detected suspicious issuer for "' . $response['me'] . '": ' . json_encode($issuerEndpoint->getArray()), E_USER_WARNING);
