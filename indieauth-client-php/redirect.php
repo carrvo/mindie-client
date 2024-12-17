@@ -63,8 +63,8 @@ if($error) {
     trigger_error('Please set the environment variable `CLIENT_FILESYSTEM_PATH` for '.IndieAuth\Client::$clientID, E_USER_WARNING);
     header('HTTP/1.1 500 Internal Server Error', true, 500);
   }
-  if (strpos(file_get_contents($htaccess), $metadataendpoint) === false) {
-    $oauth_token_verify = 'OAuth2TokenVerify metadata '.$metadataendpoint.' introspect.auth=client_secret_basic&client_id='.IndieAuth\Client::$clientID.'&client_secret=_'."\n";
+  if (strpos(file_get_contents($htaccess), $metadataEndpoint) === false) {
+    $oauth_token_verify = 'OAuth2TokenVerify metadata '.$metadataEndpoint.' introspect.auth=client_secret_basic&client_id='.IndieAuth\Client::$clientID.'&client_secret=_'."\n";
     file_put_contents($htaccess, $oauth_token_verify, FILE_APPEND);
   }
 
