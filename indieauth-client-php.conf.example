@@ -9,6 +9,7 @@ Alias /oauth/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect
 # Alternatively
 # <Location /oauth/>
 	SetEnv CLIENT_PATH oauth
+	SetEnv CLIENT_SCOPE "profile oauth"
 	AuthType oauth2
 	AuthName "Hello OAuth"
 	ErrorDocument 401 /oauth/index
@@ -20,6 +21,7 @@ Alias /oauth/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect
 </Location>
 <LocationMatch /oauth/(index|login|redirect)$ >
 	SetEnv CLIENT_PATH oauth
+	SetEnv CLIENT_SCOPE "profile oauth"
 	AuthType None
 	<RequireAll>
 		Require all granted
