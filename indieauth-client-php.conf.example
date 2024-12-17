@@ -1,7 +1,7 @@
 
-Alias /oauth/index /usr/local/src/mindie-client/indieauth-client-php/index.php
-Alias /oauth/login /usr/local/src/mindie-client/indieauth-client-php/login.php
-Alias /oauth/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect.php
+AliasMatch ^/oauth/index$ /usr/local/src/mindie-client/indieauth-client-php/index.php
+AliasMatch ^/oauth/login$ /usr/local/src/mindie-client/indieauth-client-php/login.php
+AliasMatch ^/oauth/redirect$ /usr/local/src/mindie-client/indieauth-client-php/redirect.php
 <Location /oauth/content/>
 # Alternatively
 # <Location /oauth/>
@@ -16,7 +16,7 @@ Alias /oauth/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect
 		Require valid-user
 	</RequireAll>
 </Location>
-<LocationMatch /oauth/(index|login|redirect)$ >
+<Directory /usr/local/src/mindie-client/indieauth-client-php/ >
 	SetEnv CLIENT_PATH oauth
 	SetEnv CLIENT_SCOPE "profile oauth"
 	SetEnv CLIENT_FILESYSTEM_PATH /filesystem/path/to/client/
@@ -24,6 +24,6 @@ Alias /oauth/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect
 	<RequireAll>
 		Require all granted
 	</RequireAll>
-</LocationMatch>
+</Directory>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
