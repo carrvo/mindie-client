@@ -5,6 +5,12 @@
 		Require all granted
 	</RequireAll>
 </Directory>
+<Files /usr/local/src/mindie-client/client_id.json.php >
+	AuthType None
+	<RequireAll>
+		Require all granted
+	</RequireAll>
+</Files>
 
 AliasMatch ^/oauth/index$ /usr/local/src/mindie-client/indieauth-client-php/index.php
 AliasMatch ^/oauth/login$ /usr/local/src/mindie-client/indieauth-client-php/login.php
@@ -14,6 +20,8 @@ AliasMatch ^/oauth/oauth-client-server$ /usr/local/src/mindie-client/client_id.j
 	SetEnv CLIENT_PATH oauth
 	SetEnv CLIENT_SCOPE "profile oauth"
 	SetEnv CLIENT_FILESYSTEM_PATH /filesystem/path/to/client/
+	SetEnv CLIENT_NAME "Hello OAuth"
+	SetEnv CLIENT_HOME example
 </Location>
 <Location /oauth/content/>
 # Alternatively
@@ -27,12 +35,5 @@ AliasMatch ^/oauth/oauth-client-server$ /usr/local/src/mindie-client/client_id.j
 		Require valid-user
 	</RequireAll>
 </Location>
-<LocationMatch /oauth/oauth-client-server$ >
-	SetEnv CLIENT_PATH oauth
-	AuthType None
-	<RequireAll>
-		Require all granted
-	</RequireAll>
-</LocationMatch>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet

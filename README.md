@@ -25,6 +25,12 @@ integrity of your system (not grow exponentially in size).
 		    Require all granted
 	    </RequireAll>
     </Directory>
+    <Files /usr/local/src/mindie-client/client_id.json.php >
+	    AuthType None
+	    <RequireAll>
+		    Require all granted
+	    </RequireAll>
+    </Files>
 
     AliasMatch ^/<client>/index$ /usr/local/src/mindie-client/indieauth-client-php/index.php
     AliasMatch ^/<client>/login$ /usr/local/src/mindie-client/indieauth-client-php/login.php
@@ -43,13 +49,6 @@ integrity of your system (not grow exponentially in size).
 		    Require valid-user
 	    </RequireAll>
     </Location>
-    <LocationMatch /<client>/oauth-client-server$ >
-	    SetEnv CLIENT_PATH <client>
-	    AuthType None
-	    <RequireAll>
-		    Require all granted
-	    </RequireAll>
-    </LocationMatch>
     ```
 1. Run `new-client.bash </filesystem/path/to/client/>` to create `.htaccess` file and add the output configuration to your Apache HTTPd configuration
     ```
