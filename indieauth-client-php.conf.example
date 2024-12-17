@@ -1,12 +1,22 @@
 
+<Directory /usr/local/src/mindie-client/indieauth-client-php/ >
+	AuthType None
+	<RequireAll>
+		Require all granted
+	</RequireAll>
+</Directory>
+
 AliasMatch ^/oauth/index$ /usr/local/src/mindie-client/indieauth-client-php/index.php
 AliasMatch ^/oauth/login$ /usr/local/src/mindie-client/indieauth-client-php/login.php
 AliasMatch ^/oauth/redirect$ /usr/local/src/mindie-client/indieauth-client-php/redirect.php
+<Location /oauth/>
+	SetEnv CLIENT_PATH oauth
+	SetEnv CLIENT_SCOPE "profile oauth"
+	SetEnv CLIENT_FILESYSTEM_PATH /filesystem/path/to/client/
+</Location>
 <Location /oauth/content/>
 # Alternatively
 # <Location /oauth/>
-	SetEnv CLIENT_PATH oauth
-	SetEnv CLIENT_SCOPE "profile oauth"
 	AuthType oauth2
 	AuthName "Hello OAuth"
 	ErrorDocument 401 /oauth/index
@@ -16,14 +26,5 @@ AliasMatch ^/oauth/redirect$ /usr/local/src/mindie-client/indieauth-client-php/r
 		Require valid-user
 	</RequireAll>
 </Location>
-<Directory /usr/local/src/mindie-client/indieauth-client-php/ >
-	SetEnv CLIENT_PATH oauth
-	SetEnv CLIENT_SCOPE "profile oauth"
-	SetEnv CLIENT_FILESYSTEM_PATH /filesystem/path/to/client/
-	AuthType None
-	<RequireAll>
-		Require all granted
-	</RequireAll>
-</Directory>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
