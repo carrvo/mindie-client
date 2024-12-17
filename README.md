@@ -19,12 +19,12 @@ integrity of your system (not grow exponentially in size).
 1. Run `setup.bash` to setup required directories and files.
 1. Add configuration to your Apache HTTPd configuration (example found [indieauth-client-php.conf.example](indieauth-client-php.conf.example)) replacing `<client>`, and `<your host>` throughout
     ```
-    <Directory /usr/local/src/mindie-client/indieauth-client-php/ >
+    <FilesMatch ^/usr/local/src/mindie-client/indieauth-client-php/(index|login|redirect).php$ >
 	    AuthType None
 	    <RequireAll>
 		    Require all granted
 	    </RequireAll>
-    </Directory>
+    </FilesMatch>
     <Files /usr/local/src/mindie-client/client_id.json.php >
 	    AuthType None
 	    <RequireAll>
