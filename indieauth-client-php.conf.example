@@ -2,13 +2,11 @@
 Alias /oauth/index /usr/local/src/mindie-client/indieauth-client-php/index.php
 Alias /oauth/login /usr/local/src/mindie-client/indieauth-client-php/login.php
 Alias /oauth/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect.php
-<Directory /usr/local/src/mindie-client/indieauth-client-php/>
-	AllowOverride AuthConfig
-</Directory>
 <Location /oauth/content/>
 # Alternatively
 # <Location /oauth/>
 	SetEnv CLIENT_PATH oauth
+	SetEnv CLIENT_SCOPE "profile oauth"
 	AuthType oauth2
 	AuthName "Hello OAuth"
 	ErrorDocument 401 /oauth/index
@@ -18,8 +16,9 @@ Alias /oauth/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect
 		Require valid-user
 	</RequireAll>
 </Location>
-<LocationMatch /oauth/(index/login/redirect)$ >
+<LocationMatch /oauth/(index|login|redirect)$ >
 	SetEnv CLIENT_PATH oauth
+	SetEnv CLIENT_SCOPE "profile oauth"
 	AuthType None
 	<RequireAll>
 		Require all granted
