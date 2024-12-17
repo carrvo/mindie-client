@@ -1,10 +1,10 @@
 
-<Directory /usr/local/src/mindie-client/indieauth-client-php/ >
+<FilesMatch ^/usr/local/src/mindie-client/indieauth-client-php/(index|login|redirect).php$ >
 	AuthType None
 	<RequireAll>
 		Require all granted
 	</RequireAll>
-</Directory>
+</FilesMatch>
 <Files /usr/local/src/mindie-client/client_id.json.php >
 	AuthType None
 	<RequireAll>
