@@ -22,9 +22,6 @@ integrity of your system (not grow exponentially in size).
     Alias /<client>/index /usr/local/src/mindie-client/indieauth-client-php/index.php
     Alias /<client>/login /usr/local/src/mindie-client/indieauth-client-php/login.php
     Alias /<client>/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect.php
-    <Directory /usr/local/src/mindie-client/indieauth-client-php/>
-	    AllowOverride AuthConfig
-    </Directory>
     <Location /<client>/>
 	    SetEnv CLIENT_PATH <client>
 	    AuthType oauth2
@@ -45,6 +42,12 @@ integrity of your system (not grow exponentially in size).
 		    Require all granted
 	    </RequireAll>
     </LocationMatch>
+    ```
+1. Run `new-client.bash </filesystem/path/to/client/>` to create `.htaccess` file and add the output configuration to your Apache HTTPd configuration
+    ```
+    <Directory /filesystem/path/to/client/>
+	    AllowOverride AuthConfig
+    </Directory>
     ```
 
 This will setup the following endpoints on your Apache server:

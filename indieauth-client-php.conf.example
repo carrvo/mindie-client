@@ -2,9 +2,6 @@
 Alias /oauth/index /usr/local/src/mindie-client/indieauth-client-php/index.php
 Alias /oauth/login /usr/local/src/mindie-client/indieauth-client-php/login.php
 Alias /oauth/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect.php
-<Directory /usr/local/src/mindie-client/indieauth-client-php/>
-	AllowOverride AuthConfig
-</Directory>
 <Location /oauth/content/>
 # Alternatively
 # <Location /oauth/>
