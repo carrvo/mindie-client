@@ -39,7 +39,25 @@ if($error) {
   // The HTTP response code:
   // $response['response_code']
 
-  $metadataendpoint = IndieAuth\Client::discoverMetadataEndpoint($response['me']);
+  $metadataEndpoint = IndieAuth\Client::discoverMetadataEndpoint($response['me']);
+  if ($metadataEndpoint) {
+    $_SESSION['indieauth_metadata'] = $metadataEndpoint;
+    $issuerEndpoint = self::discoverIssuer($metadataEndpoint);
+    if ($issuerEndpoint instanceof IndieAuth\ErrorResponse) {
+      // handle the error response, array with keys `error` and `error_description`
+      trigger_error('Detected suspicious issuer for "' . $response['me'] . '": ' . json_encode($issuerEndpoint->getArray()), E_USER_WARNING);
+      header('HTTP/1.1 403 Forbidden');
+      die('HTTP/1.1 403 Forbidden: suspicious issuer');
+    }
+
+    $_SESSION['indieauth_issuer'] = $issuerEndpoint;
+  }
+  else {
+    trigger_error('Failed to find metadata endpoint for "' . $response['me'] . '"', E_USER_WARNING);
+    header('HTTP/1.1 422 Unprocessable Content');
+    die('HTTP/1.1 422 Unprocessable Content');
+  }
+  
   $htaccess = getenv('CLIENT_FILESYSTEM_PATH') . '.htaccess';
   if (strcmp($htaccess, '.htaccess') === 0) {
     trigger_error('Please set the environment variable `CLIENT_FILESYSTEM_PATH` for '.IndieAuth\Client::$clientID, E_USER_WARNING);

@@ -91,6 +91,8 @@ For your use on your PHP endpoints.
 - `$_SESSION['user']`
 - `$_SESSION['token']`
 - `$_SESSION['scope']`
+- `$_SESSION['indieauth_metadata']` (endpoint)
+- `$_SESSION['indieauth_issuer']` (endpoint)
 
 ### Cookies
 
