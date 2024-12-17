@@ -19,9 +19,16 @@ integrity of your system (not grow exponentially in size).
 1. Run `setup.bash` to setup required directories and files.
 1. Add configuration to your Apache HTTPd configuration (example found [indieauth-client-php.conf.example](indieauth-client-php.conf.example)) replacing `<client>`, and `<your host>` throughout
     ```
-    Alias /<client>/index /usr/local/src/mindie-client/indieauth-client-php/index.php
-    Alias /<client>/login /usr/local/src/mindie-client/indieauth-client-php/login.php
-    Alias /<client>/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect.php
+    <Directory /usr/local/src/mindie-client/indieauth-client-php/ >
+	    AuthType None
+	    <RequireAll>
+		    Require all granted
+	    </RequireAll>
+    </Directory>
+
+    AliasMatch ^/<client>/index$ /usr/local/src/mindie-client/indieauth-client-php/index.php
+    AliasMatch ^/<client>/login$ /usr/local/src/mindie-client/indieauth-client-php/login.php
+    AliasMatch ^/<client>/redirect$ /usr/local/src/mindie-client/indieauth-client-php/redirect.php
     <Location /<client>/>
 	    SetEnv CLIENT_PATH <client>
 	    AuthType oauth2
@@ -35,13 +42,6 @@ integrity of your system (not grow exponentially in size).
 		    Require valid-user
 	    </RequireAll>
     </Location>
-    <LocationMatch /<client>/(index|login|redirect)$ >
-	    SetEnv CLIENT_PATH <client>
-	    AuthType None
-	    <RequireAll>
-		    Require all granted
-	    </RequireAll>
-    </LocationMatch>
     ```
 1. Run `new-client.bash </filesystem/path/to/client/>` to create `.htaccess` file and add the output configuration to your Apache HTTPd configuration
     ```
@@ -82,7 +82,7 @@ Set these in Apache HTTPd config.
 
 - `SetEnv CLIENT_PATH <client>` - for your client ID to be `https://example.com/<client>/`
 - `SetEnv CLIENT_SCOPE "profile oauth"` - to set the scopes that will be requested
-- `SetEnv CLIENT_FILESYSTEM_PATH /filesystem/path/to/client/` - so that the `.htaccess` can be updated appropriately
+- `SetEnv CLIENT_FILESYSTEM_PATH /filesystem/path/to/client/` - so that the `.htaccess` can be updated appropriately (note that if the client does not reside on the filesystem, then this should be set to `/usr/local/src/mindie-client/indieauth-client-php/` due to the aliases that are required)
 
 ### Session Variables
 
