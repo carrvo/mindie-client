@@ -4,7 +4,7 @@ require '/usr/local/lib/indieauth-client-php/vendor/autoload.php';
 $issuer = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
 
 session_start();
-IndieAuth\Client::$clientID = $issuer.'/'.getenv('CLIENT_PATH').'/';
+IndieAuth\Client::$clientID = $issuer.'/'.getenv('CLIENT_PATH').'/oauth-client-server';
 IndieAuth\Client::$redirectURL = $issuer.'/'.getenv('CLIENT_PATH').'/redirect';
 
 $stderr = fopen( 'php://stderr', 'w' );
@@ -42,7 +42,7 @@ if($error) {
   $metadataEndpoint = IndieAuth\Client::discoverMetadataEndpoint($response['me']);
   if ($metadataEndpoint) {
     $_SESSION['indieauth_metadata'] = $metadataEndpoint;
-    $issuerEndpoint = self::discoverIssuer($metadataEndpoint);
+    $issuerEndpoint = IndieAuth\Client::discoverIssuer($metadataEndpoint);
     if ($issuerEndpoint instanceof IndieAuth\ErrorResponse) {
       // handle the error response, array with keys `error` and `error_description`
       trigger_error('Detected suspicious issuer for "' . $response['me'] . '": ' . json_encode($issuerEndpoint->getArray()), E_USER_WARNING);
@@ -63,8 +63,8 @@ if($error) {
     trigger_error('Please set the environment variable `CLIENT_FILESYSTEM_PATH` for '.IndieAuth\Client::$clientID, E_USER_WARNING);
     header('HTTP/1.1 500 Internal Server Error', true, 500);
   }
-  if (strpos(file_get_contents($htaccess), $metadataendpoint) === false) {
-    $oauth_token_verify = 'OAuth2TokenVerify metadata '.$metadataendpoint.' introspect.auth=client_secret_basic&client_id='.IndieAuth\Client::$clientID.'&client_secret=_'."\n";
+  if (strpos(file_get_contents($htaccess), $metadataEndpoint) === false) {
+    $oauth_token_verify = 'OAuth2TokenVerify metadata '.$metadataEndpoint.' introspect.auth=client_secret_basic&client_id='.IndieAuth\Client::$clientID.'&client_secret=_'."\n";
     file_put_contents($htaccess, $oauth_token_verify, FILE_APPEND);
   }
 
