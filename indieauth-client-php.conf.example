@@ -19,6 +19,7 @@ Alias /oauth/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect
 <LocationMatch /oauth/(index|login|redirect)$ >
 	SetEnv CLIENT_PATH oauth
 	SetEnv CLIENT_SCOPE "profile oauth"
+	SetEnv CLIENT_FILESYSTEM_PATH /filesystem/path/to/client/
 	AuthType None
 	<RequireAll>
 		Require all granted

@@ -23,5 +23,6 @@ sudo chgrp www-data "$1.htaccess"
 sudo chmod u+r-wx,g+rw-x,o-rwx "$1.htaccess"
 echo "<Directory $1>
 	AllowOverride AuthConfig
-</Directory>"
+</Directory>
+SetEnv CLIENT_FILESYSTEM_PATH $1"
 

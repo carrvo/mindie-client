@@ -48,6 +48,7 @@ integrity of your system (not grow exponentially in size).
     <Directory /filesystem/path/to/client/>
 	    AllowOverride AuthConfig
     </Directory>
+    SetEnv CLIENT_FILESYSTEM_PATH /filesystem/path/to/client/
     ```
 
 This will setup the following endpoints on your Apache server:
@@ -81,6 +82,7 @@ Set these in Apache HTTPd config.
 
 - `SetEnv CLIENT_PATH <client>` - for your client ID to be `https://example.com/<client>/`
 - `SetEnv CLIENT_SCOPE "profile oauth"` - to set the scopes that will be requested
+- `SetEnv CLIENT_FILESYSTEM_PATH /filesystem/path/to/client/` - so that the `.htaccess` can be updated appropriately
 
 ### Session Variables
 
