@@ -19,13 +19,17 @@ integrity of your system (not grow exponentially in size).
 1. Run `setup.bash` to setup required directories and files.
 1. Add configuration to your Apache HTTPd configuration (example found [indieauth-client-php.conf.example](indieauth-client-php.conf.example)) replacing `<client>`, and `<your host>` throughout
     ```
-    Alias /<client>/index /usr/local/src/mindie-client/indieauth-client-php/index.php
-    Alias /<client>/login /usr/local/src/mindie-client/indieauth-client-php/login.php
-    Alias /<client>/redirect /usr/local/src/mindie-client/indieauth-client-php/redirect.php
-    Alias /<client>/oauth-client-server /usr/local/src/mindie-client/client_id.json.php
-    <Directory /usr/local/src/mindie-client/indieauth-client-php/>
-	    AllowOverride AuthConfig
+    <Directory /usr/local/src/mindie-client/indieauth-client-php/ >
+	    AuthType None
+	    <RequireAll>
+		    Require all granted
+	    </RequireAll>
     </Directory>
+
+    AliasMatch ^/<client>/index$ /usr/local/src/mindie-client/indieauth-client-php/index.php
+    AliasMatch ^/<client>/login$ /usr/local/src/mindie-client/indieauth-client-php/login.php
+    AliasMatch ^/<client>/redirect$ /usr/local/src/mindie-client/indieauth-client-php/redirect.php
+    AliasMatch ^/<client>/oauth-client-server$ /usr/local/src/mindie-client/client_id.json.php
     <Location /<client>/>
 	    SetEnv CLIENT_PATH <client>
 	    AuthType oauth2
@@ -39,13 +43,20 @@ integrity of your system (not grow exponentially in size).
 		    Require valid-user
 	    </RequireAll>
     </Location>
-    <LocationMatch /<client>/(index|login|redirect|oauth-client-server)$ >
+    <LocationMatch /<client>/oauth-client-server$ >
 	    SetEnv CLIENT_PATH <client>
 	    AuthType None
 	    <RequireAll>
 		    Require all granted
 	    </RequireAll>
     </LocationMatch>
+    ```
+1. Run `new-client.bash </filesystem/path/to/client/>` to create `.htaccess` file and add the output configuration to your Apache HTTPd configuration
+    ```
+    <Directory /filesystem/path/to/client/>
+	    AllowOverride AuthConfig
+    </Directory>
+    SetEnv CLIENT_FILESYSTEM_PATH /filesystem/path/to/client/
     ```
 
 This will setup the following endpoints on your Apache server:
@@ -80,6 +91,7 @@ Set these in Apache HTTPd config.
 
 - `SetEnv CLIENT_PATH <client>` - for your client ID to be `https://example.com/<client>/`
 - `SetEnv CLIENT_SCOPE "profile oauth"` - *optional* to set the scopes that will be requested
+- `SetEnv CLIENT_FILESYSTEM_PATH /filesystem/path/to/client/` - so that the `.htaccess` can be updated appropriately (note that if the client does not reside on the filesystem, then this should be set to `/usr/local/src/mindie-client/indieauth-client-php/` due to the aliases that are required)
 - `SetEnv CLIENT_HOME <path/to/homepage>"` - *optional* path (relative to `CLIENT_PATH`) for the client's public webpage
 - `SetEnv CLIENT_LOGO <path/to/logo>"` - *optional* path (relative to `CLIENT_PATH`) for the client's public logo image
 - `SetEnv CLIENT_NAME <human friendly>"` - *optional* human friendly name for the IdP to display
