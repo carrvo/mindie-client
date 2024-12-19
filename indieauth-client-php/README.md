@@ -7,6 +7,8 @@ License: [MIT](LICENSE.txt)
 
 Files are modified versions of the [README](README.md) examples.
 
+Additionally, auto-entry of an anonymous user URI is supported (upon optional Apache HTTPd configuration).
+
 # IndieAuth Client
 
 This is a simple library to help with IndieAuth. There are two ways you may want to use it, either when developing an application that signs people in using IndieAuth, or when developing your own endpoint for issuing access tokens and you need to verify auth codes.
