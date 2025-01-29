@@ -12,12 +12,12 @@ $meta = [
 	"issuer" => $issuer,
 	"application_type" => "web",
 	"client_id" => "$issuer$client_id",
-	"client_uri" => "$issuer/$client_uri",
-	"client_logo" => "$issuer/$client_logo",
-	"client_name" => "$client_name",
-	"client_tos" => "$issuer/$client_tos",
-	"client_policy" => "$issuer/$client_policy",
-	"scope" => "$client_scope",
+	"client_uri" => !empty(getenv('CLIENT_HOME')) ? "$issuer/$client_uri" : null,
+	"client_logo" => !empty(getenv('CLIENT_LOGO')) ? "$issuer/$client_logo" : null,
+	"client_name" => !empty(getenv('CLIENT_NAME')) ? "$client_name" : null,
+	"client_tos" => !empty(getenv('CLIENT_TOS')) ? "$issuer/$client_tos" : null,
+	"client_policy" => !empty(getenv('CLIENT_POLICY')) ? "$issuer/$client_policy" : null,
+	"scope" => !empty(getenv('CLIENT_SCOPE')) ? "$client_scope" : null,
 	"response_types" => ["code"],
 	"grant_types" => ["authorization_code"],
 	"token_endpoint_auth_method" => "client_secret_basic",
@@ -25,5 +25,5 @@ $meta = [
 	"client_secret" => "_",
 	"client_secret_expires_at" => 0,
 ];
-exit(json_encode($meta));
+exit(json_encode(array_filter($meta)));
 ?>
