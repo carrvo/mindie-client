@@ -7,7 +7,7 @@ License: [MIT](LICENSE.txt)
 
 Files are modified versions of the [README](README.md) examples.
 
-Additionally, auto-entry of an anonymous user URI is supported (upon optional Apache HTTPd configuration).
+Additionally, an anonymous user URI (auto-entry or not) is supported (upon optional Apache HTTPd configuration).
 
 # IndieAuth Client
 
