@@ -74,7 +74,7 @@ If you are choosing to use this isolated from the internet on your homenet, you 
 +    if (!array_key_exists('scheme', $parts) || ($parts['scheme'] != 'https' && $parts['scheme'] != 'http')) {
 ```
 
-### Potential Issue
+### Potential Issue - Mismatched Issuer
 
 If there are complaints that the issuer does not match, this could be because of the presence or absence of a trailing slash (`/`) in your metadata endpoint. To resolve this, you *MAY* make the additional modification to the [Client.php](https://github.com/indieweb/indieauth-client-php/blob/main/src/IndieAuth/Client.php#L534) to allow the insecure `HTTP`.
 
@@ -82,6 +82,19 @@ If there are complaints that the issuer does not match, this could be because of
 /usr/local/lib/indieauth-client-php/vendor/indieauth/client/src/IndieAuth/Client.php:534
 -    if ($params['iss'] !== $expected_issuer) {
 +    if (self::normalizeMeURL($params['iss']) !== self::normalizeMeURL($expected_issuer)) {
+```
+
+### Potential Issue - Required Endpoints give Forbidden (403)
+
+If the required endpoints are returning `403 Forbidden` then there is likely another part of your configuration denying access to the webspace. Simply grant access in webspace in addition to filesystem space.
+
+```
+    <LocationMatch ^/<client>/(index|login|redirect|oauth-client-server)$ >
+	    AuthType None
+	    <RequireAll>
+		    Require all granted
+	    </RequireAll>
+    </LocationMatch>
 ```
 
 ### Environment Variables
