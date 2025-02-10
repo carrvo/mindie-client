@@ -96,7 +96,8 @@ Set these in Apache HTTPd config.
 - `SetEnv CLIENT_NAME <human friendly>"` - *optional* human friendly name for the IdP to display
 - `SetEnv CLIENT_TOS <path/to/tos>"` - *optional* path (relative to `CLIENT_PATH`) for the client's terms of service
 - `SetEnv CLIENT_POLICY <path/to/policy>"` - *optional* path (relative to `CLIENT_PATH`) for the client's privacy policy document
-- `SetEnv CLIENT_ANONYMOUS https://example.com/user/anonymous` - *optional* user URI for supporting an anonymous login (they will not be able to fill in their own URI) **that will be in effect for all endpoints of the client it is configured on** (this is due to the need to set this value during `/<client>/index` request or redirect during `ErrorDocument`)
+- `SetEnv CLIENT_ANONYMOUS https://example.com/user/anonymous` - *optional* user URI for supporting an additional "Stay Anonymous" login (they *WILL* be able to fill in their own URI) **that will be in effect for all endpoints of the client it is configured on** (this is due to the need to set this value during `/<client>/index` request or redirect during `ErrorDocument`)
+- `SetEnv CLIENT_AUTO_ANONYMOUS https://example.com/user/anonymous` - *optional* user URI for supporting an anonymous login (they *WILL* ***NOT*** be able to fill in their own URI) **that will be in effect for all endpoints of the client it is configured on** (this is due to the need to set this value during `/<client>/index` request or redirect during `ErrorDocument`)
 
 ### Session Variables
 
