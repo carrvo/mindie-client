@@ -13,8 +13,22 @@ setcookie('auth_redirect', $auth_redirect, 0, '/'.getenv('CLIENT_PATH').'/', $_S
         });
         </script>
         <?php endif; ?>
+    <style>
+	.error {
+	    color: yellow;
+            background-color: black;
+        }
+    </style>
 </head>
 <body>
+    <?php if (isset($_COOKIE['me'])) : ?>
+	<?php if (isset($_COOKIE['oauth_token'])) : ?>
+            <p class="error">Please ensure that your IdP provides the <code>sub</code> claim during introspection!</p>
+	<?php else : ?>
+            <p class="error">Please ensure that your IdP supports introspection!</p>
+	<?php endif; ?>
+        <p class="error">You may want to login with <a href="#url-anonymous">Stay Anonymous</a> in the meantime.</p>
+    <?php endif; ?>
     <form action="/<?php echo getenv('CLIENT_PATH') ?>/login" method="post">
     <input id="url" type="url" name="url" placeholder="IndieAuth URI" required autofocus>
     <input class="submit" type="submit" value="Log In">
