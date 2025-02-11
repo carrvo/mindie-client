@@ -16,6 +16,7 @@ setcookie('auth_redirect', $auth_redirect, 0, '/'.getenv('CLIENT_PATH').'/', $_S
     <style>
 	.error {
 	    color: yellow;
+            background-color: black;
         }
     </style>
 </head>
