@@ -19,6 +19,13 @@ IndieAuth\Client::$clientID = $issuer.'/'.getenv('CLIENT_PATH').'/oauth-client-s
 // The redirect URL is where the user will be returned to after they approve the request.
 IndieAuth\Client::$redirectURL = $issuer.'/'.getenv('CLIENT_PATH').'/redirect';
 
+// Ensure the URL includes the scheme.
+// Assume HTTPS if missing.
+$user_url = $_POST['url'];
+if (parse_url($user_url, PHP_URL_SCHEME) === null) {
+  $user_url = 'https://' . $user_url;
+}
+
 // Pass the user's URL and your requested scope to the client.
 // If you are writing a Micropub client, you should include at least the "create" scope.
 // If you are just trying to log the user in, you can omit the second parameter.
@@ -26,10 +33,10 @@ IndieAuth\Client::$redirectURL = $issuer.'/'.getenv('CLIENT_PATH').'/redirect';
 try {
   $scope = getenv('CLIENT_SCOPE');
   if (empty($scope)) {
-    list($authorizationURL, $error) = IndieAuth\Client::begin($_POST['url']);
+    list($authorizationURL, $error) = IndieAuth\Client::begin($user_url);
   }
   else {
-    list($authorizationURL, $error) = IndieAuth\Client::begin($_POST['url'], $scope);
+    list($authorizationURL, $error) = IndieAuth\Client::begin($user_url, $scope);
   }
 } catch (Exception $e) {
 	//echo "<p>".$e->getMessage()."</p>";
