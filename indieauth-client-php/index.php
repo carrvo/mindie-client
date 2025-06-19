@@ -1,5 +1,13 @@
 <?php
-$auth_redirect = getenv('REDIRECT_URL').'?'.getenv('REDIRECT_QUERY_STRING');
+if (empty(getenv('REDIRECT_URL')) !== true) {
+    $auth_redirect = getenv('REDIRECT_URL').'?'.getenv('REDIRECT_QUERY_STRING');
+}
+else if (isset($_SERVER['HTTP_REFERER'])) {
+    $auth_redirect = $_SERVER['HTTP_REFERER'];
+}
+else {
+    $auth_redirect = '/' . getenv('CLIENT_PATH') . '/' . getenv('CLIENT_HOME');
+}
 setcookie('auth_redirect', $auth_redirect, 0, '/'.getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
 ?>
 <!DOCTYPE HTML>
