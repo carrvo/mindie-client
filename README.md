@@ -141,6 +141,14 @@ Temporary cookie to facilitate restoring path after being redirected to a login 
 1. Authenticate and Authorize (unselect scopes that you wish to deny)
 1. Be redirected back to `https://example.com/<client>/some/path`
 
+### Alternative
+
+1. Navigate to `https://example.com/<client>/some/public/path`
+1. Click on a `<a href="https://example.com/<client>/index">Login</a>`
+1. On the login page, enter your profile URI and click `Log In`
+1. Authenticate and Authorize (unselect scopes that you wish to deny)
+1. Be redirected back to `https://example.com/<client>/some/public/path`
+
 ## License
 
 Copyright 2024 by carrvo
