@@ -13,7 +13,7 @@ composer require indieauth/client
 
 cd /usr/src/mindie-client/
 touch indieauth-client-php/.htaccess
-sudo chgrp www-data indieauth-client-php/.htaccess
-sudo chmod u+r-wx,g+rw-x,o-rwx indieauth-client-php/.htaccess
+chgrp www-data indieauth-client-php/.htaccess
+chmod u+r-wx,g+rw-x,o-rwx indieauth-client-php/.htaccess
 
 exit 0
