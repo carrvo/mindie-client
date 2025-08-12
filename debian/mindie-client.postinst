@@ -16,4 +16,6 @@ touch indieauth-client-php/.htaccess
 chgrp www-data indieauth-client-php/.htaccess
 chmod u+r-wx,g+rw-x,o-rwx indieauth-client-php/.htaccess
 
+/usr/bin/new-mindie-client /var/lib/indieauth-client/ > /dev/null
+
 exit 0
