@@ -18,6 +18,6 @@ Depends: ${misc:Depends}, php, composer, php-curl, php-dom, php-sqlite3, sqlite3
 Homepage: https://github.com/carrvo/mindie-client
 Description: Built upon IndieAuth Client to give a
  minimally self-hosted IndieAuth client.
-  .
+ .
  This functions as both a native IndieAuth client
  and a generic OAuth2.0 (Auth0.com) client.
