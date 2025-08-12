@@ -1,1 +1,11 @@
-.htaccess
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/files
+debian/mindie-client.debhelper.log
+debian/mindie-client.postinst.debhelper
+debian/mindie-client.postrm.debhelper
+debian/mindie-client.prerm.debhelper
+debian/mindie-client.substvars
+debian/mindie-client/
+package/
+
