@@ -1,6 +1,6 @@
 <?php
 
-require '/usr/local/lib/indieauth-client-php/vendor/autoload.php';
+require '/usr/lib/indieauth-client-php/vendor/autoload.php';
 $issuer = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
 
 if(!isset($_POST['url'])) {

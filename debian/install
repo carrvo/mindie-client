@@ -1,0 +1,3 @@
+indieauth-client-php/* /usr/src/mindie-client/indieauth-client-php/
+client_id.json.php /usr/src/mindie-client/
+new-mindie-client /usr/bin/
