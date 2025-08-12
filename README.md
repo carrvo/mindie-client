@@ -14,28 +14,16 @@ integrity of your system (not grow exponentially in size).
 
 ## Setup
 
-1. Clone to `/usr/local/src/`
-1. Run `dependencies.bash` to install dependent Ubuntu packages (like Apache HTTPd and PHP).
-1. Run `setup.bash` to setup required directories and files.
-1. Add configuration to your Apache HTTPd configuration (example found [indieauth-client-php.conf.example](indieauth-client-php.conf.example)) replacing `<client>`, and `<your host>` throughout
+1. Clone
+1. Run `debian-package-dependencies` to install dependent *build* Debian packages
+1. Run `make debian-package` to build package locally
+1. Run `dpkg -i package/mindie-idp_X.X.X_all.deb` to install package locally
+1. Modify the configuration for your Apache HTTPd configuration (installed to `/etc/apache2/conf-available/indieauth-client-php.conf`) replacing `<client>` (installed with `oauth`) throughout
     ```
-    <FilesMatch ^/usr/local/src/mindie-client/indieauth-client-php/(index|login|redirect).php$ >
-	    AuthType None
-	    <RequireAll>
-		    Require all granted
-	    </RequireAll>
-    </FilesMatch>
-    <Files /usr/local/src/mindie-client/client_id.json.php >
-	    AuthType None
-	    <RequireAll>
-		    Require all granted
-	    </RequireAll>
-    </Files>
-
-    AliasMatch ^/<client>/index$ /usr/local/src/mindie-client/indieauth-client-php/index.php
-    AliasMatch ^/<client>/login$ /usr/local/src/mindie-client/indieauth-client-php/login.php
-    AliasMatch ^/<client>/redirect$ /usr/local/src/mindie-client/indieauth-client-php/redirect.php
-    AliasMatch ^/<client>/oauth-client-server$ /usr/local/src/mindie-client/client_id.json.php
+    AliasMatch ^/<client>/index$ /usr/src/mindie-client/indieauth-client-php/index.php
+    AliasMatch ^/<client>/login$ /usr/src/mindie-client/indieauth-client-php/login.php
+    AliasMatch ^/<client>/redirect$ /usr/src/mindie-client/indieauth-client-php/redirect.php
+    AliasMatch ^/<client>/oauth-client-server$ /usr/src/mindie-client/client_id.json.php
     <Location /<client>/>
 	    SetEnv CLIENT_PATH <client>
 	    AuthType oauth2
@@ -50,7 +38,7 @@ integrity of your system (not grow exponentially in size).
 	    </RequireAll>
     </Location>
     ```
-1. Run `new-client.bash </filesystem/path/to/client/>` to create `.htaccess` file and add the output configuration to your Apache HTTPd configuration
+1. Run `new-mindie-client </filesystem/path/to/client/>` to create `.htaccess` file and add the output configuration to your Apache HTTPd configuration
     ```
     <Directory /filesystem/path/to/client/>
 	    AllowOverride AuthConfig
@@ -69,7 +57,7 @@ This will setup the following endpoints on your Apache server:
 If you are choosing to use this isolated from the internet on your homenet, you **MUST** make the additional modification to the [Client.php](https://github.com/indieweb/indieauth-client-php/blob/main/src/IndieAuth/Client.php#L229) to allow the insecure `HTTP`.
 
 ```diff
-/usr/local/lib/indieauth-client-php/vendor/indieauth/client/src/IndieAuth/Client.php:229
+/usr/lib/indieauth-client-php/vendor/indieauth/client/src/IndieAuth/Client.php:229
 -    if (!array_key_exists('scheme', $parts) || $parts['scheme'] != 'https') {
 +    if (!array_key_exists('scheme', $parts) || ($parts['scheme'] != 'https' && $parts['scheme'] != 'http')) {
 ```
@@ -79,7 +67,7 @@ If you are choosing to use this isolated from the internet on your homenet, you 
 If there are complaints that the issuer does not match, this could be because of the presence or absence of a trailing slash (`/`) in your metadata endpoint. To resolve this, you *MAY* make the additional modification to the [Client.php](https://github.com/indieweb/indieauth-client-php/blob/main/src/IndieAuth/Client.php#L534) to allow the insecure `HTTP`.
 
 ```diff
-/usr/local/lib/indieauth-client-php/vendor/indieauth/client/src/IndieAuth/Client.php:534
+/usr/lib/indieauth-client-php/vendor/indieauth/client/src/IndieAuth/Client.php:534
 -    if ($params['iss'] !== $expected_issuer) {
 +    if (self::normalizeMeURL($params['iss']) !== self::normalizeMeURL($expected_issuer)) {
 ```

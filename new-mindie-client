@@ -2,7 +2,7 @@
 
 if [ "$1" == "" ];
 then
-	echo "usage: ./new-client.bash /path/to/client/root/"
+	echo "usage: new-mindie-client /path/to/client/root/"
 	exit 1
 fi
 

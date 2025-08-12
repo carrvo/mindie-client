@@ -1,0 +1,23 @@
+Source: mindie-client
+Maintainer: carrvo  <carrvo@gmail.com>
+Uploaders: carrvo <carrvo@gmail.com>
+Section: httpd
+Priority: optional
+Standards-Version: 4.6.2
+Build-Depends: debhelper-compat (= 13),
+    apache2-api-20120211,
+    apache2-dev,
+    dh-apache2
+Homepage: https://github.com/carrvo/mindie-client
+Vcs-Browser: https://github.com/carrvo/mindie-client
+Vcs-Git: https://github.com/carrvo/mindie-client
+
+Package: mindie-client
+Architecture: all
+Depends: ${misc:Depends}, php, composer, php-curl, php-dom, php-sqlite3, sqlite3, libapache2-mod-oauth2
+Homepage: https://github.com/carrvo/mindie-client
+Description: Built upon IndieAuth Client to give a
+ minimally self-hosted IndieAuth client.
+ .
+ This functions as both a native IndieAuth client
+ and a generic OAuth2.0 (Auth0.com) client.
