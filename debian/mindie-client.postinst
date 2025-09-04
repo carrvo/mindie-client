@@ -3,14 +3,6 @@ set -e
 
 #DEBHELPER#
 
-cd /usr/lib/
-if [ ! -d indieauth-client-php ];
-then
-    mkdir indieauth-client-php
-fi
-cd indieauth-client-php || exit 2
-composer require indieauth/client
-
 cd /usr/src/mindie-client/
 touch indieauth-client-php/.htaccess
 chgrp www-data indieauth-client-php/.htaccess

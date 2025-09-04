@@ -9,4 +9,5 @@ debian/mindie-client.prerm.debhelper
 debian/mindie-client.substvars
 debian/mindie-client/
 package/
+vendor/
 

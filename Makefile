@@ -8,7 +8,7 @@ clean:
 	sudo rm -Rf package
 
 debian-package-dependencies:
-	sudo apt install build-essential fakeroot devscripts apache2-dev dupload
+	sudo apt install build-essential fakeroot devscripts apache2-dev dupload php-dev composer php-pear pkg-php-tools dh-php dh-sequence-phpcomposer
 
 debian-package-version:
 	dch -v $(version)
