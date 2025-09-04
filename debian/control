@@ -18,7 +18,7 @@ Vcs-Git: https://github.com/carrvo/mindie-client
 
 Package: mindie-client
 Architecture: all
-Depends: ${misc:Depends}, ${phpcomposer:Debian-require}, php, php-curl, php-dom, php-sqlite3, sqlite3, libapache2-mod-oauth2
+Depends: ${misc:Depends}, php, php-curl, php-dom, php-sqlite3, sqlite3, libapache2-mod-oauth2
 Homepage: https://github.com/carrvo/mindie-client
 Description: Built upon IndieAuth Client to give a
  minimally self-hosted IndieAuth client.
