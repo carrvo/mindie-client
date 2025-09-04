@@ -1,3 +1,9 @@
+mindie-client (1.2.2) unstable; urgency=medium
+
+  * Migrate to dh_phpcomposer 
+
+ -- carrvo <carrvo@gmail.com>  Wed, 03 Sep 2025 19:49:13 -0600
+
 mindie-client (1.2.1) unstable; urgency=medium
 
   * Initial release.

@@ -7,14 +7,18 @@ Standards-Version: 4.6.2
 Build-Depends: debhelper-compat (= 13),
     apache2-api-20120211,
     apache2-dev,
-    dh-apache2
+    dh-apache2,
+    php-dev,
+    pkg-php-tools,
+    dh-php,
+    dh-sequence-phpcomposer
 Homepage: https://github.com/carrvo/mindie-client
 Vcs-Browser: https://github.com/carrvo/mindie-client
 Vcs-Git: https://github.com/carrvo/mindie-client
 
 Package: mindie-client
 Architecture: all
-Depends: ${misc:Depends}, php, composer, php-curl, php-dom, php-sqlite3, sqlite3, libapache2-mod-oauth2
+Depends: ${misc:Depends}, php, php-curl, php-dom, php-sqlite3, sqlite3, libapache2-mod-oauth2
 Homepage: https://github.com/carrvo/mindie-client
 Description: Built upon IndieAuth Client to give a
  minimally self-hosted IndieAuth client.

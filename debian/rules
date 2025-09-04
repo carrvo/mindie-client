@@ -1,6 +1,7 @@
 #!/usr/bin/make -f
 
 override_dh_auto_build:
+	composer install
 
 override_dh_auto_install:
 	# handled by dh_install
