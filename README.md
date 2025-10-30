@@ -54,6 +54,40 @@ This will setup the following endpoints on your Apache server:
 - `https://example.com/<client>/redirect`
 - `https://example.com/<client>/oauth-client-server`
 
+### Support of Multiple Authentication
+
+The [HTTP spec](https://datatracker.ietf.org/doc/html/rfc7235#section-4.1)
+does not restrict to only one `AuthType`; yet Apache HTTPd does.
+However, the workaround is to specify the `WWW-Authenticate` header during the 401 handler.
+To facilitate this, it is useful to set `AuthType none` within Apache HTTPd so that it does not interfere
+(not required; but if you set `AuthType Basic` *and* have it in the challenge,
+then this will cause a second prompt by the browser when cancel is clicked).
+
+The workaround can be configured with
+```
+<Location /<client>/>
+    SetEnv AUTH_CHALLENGES "Bearer realm=\"my realm\", Basic realm=\"my realm\""
+</Location>
+```
+
+You can support other Authentication schemes with a setup similar to
+```
+<Location /<client>/>
+	<If "%{HTTP:Authorization} =~ /^Basic/">
+		AuthType Basic
+		Require valid-user
+	</If>
+	<ElseIf "%{HTTP:Authorization} =~ /^Bearer/">
+		AuthType oauth2
+		Require valid-user
+	</ElseIf>
+	<Else>
+		# let the ErrorDocument 401 give the AuthType Basic to avoid the double-prompt
+		AuthType none
+	</Else>
+</Location>
+```
+
 ### Insecure Configuration
 
 If you are choosing to use this isolated from the internet on your homenet, you **MAY** make the additional modification to the [Client.php](https://github.com/indieweb/indieauth-client-php/blob/main/src/IndieAuth/Client.php#L229) to allow the insecure `HTTP`. This is **not required** if you are using a self-signed certificate--but be warned that your browser will complain until you accept the risk.
@@ -101,6 +135,7 @@ Set these in Apache HTTPd config.
 - `SetEnv CLIENT_POLICY <path/to/policy>"` - *optional* path (relative to `CLIENT_PATH`) for the client's privacy policy document
 - `SetEnv CLIENT_ANONYMOUS https://example.com/user/anonymous` - *optional* user URI for supporting an additional "Stay Anonymous" login (they *WILL* be able to fill in their own URI) **that will be in effect for all endpoints of the client it is configured on** (this is due to the need to set this value during `/<client>/index` request or redirect during `ErrorDocument`)
 - `SetEnv CLIENT_AUTO_ANONYMOUS https://example.com/user/anonymous` - *optional* user URI for supporting an anonymous login (they *WILL* ***NOT*** be able to fill in their own URI) **that will be in effect for all endpoints of the client it is configured on** (this is due to the need to set this value during `/<client>/index` request or redirect during `ErrorDocument`)
+- `SetEnv AUTH_CHALLENGES "Bearer realm=\"my realm\", Basic realm=\"my realm\""` - *optional* for `index` to send its own `WWW-Authenticate` header with the provided challenge (useful for supporting *both* OAuth, this client, *and* Basic or another Authentication)
 
 ### Session Variables
 
