@@ -9,6 +9,10 @@ else {
     $auth_redirect = '/' . getenv('CLIENT_PATH') . '/' . getenv('CLIENT_HOME');
 }
 setcookie('auth_redirect', $auth_redirect, 0, '/'.getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
+if (empty(getenv('AUTH_CHALLENGES')) !== true) {
+    $challenges = getenv('AUTH_CHALLENGES');
+    header("WWW-Authenticate: $challenges", true);
+}
 ?>
 <!DOCTYPE HTML>
 <html>
