@@ -2,6 +2,8 @@
 
 Built upon [IndieAuth Client](indieauth-client-php/README.md) ([source](https://github.com/indieweb/indieauth-client-php)) to give a minimally self-hosted [IndieAuth](https://indieweb.org/IndieAuth) client. This functions as both a native [IndieAuth](https://indieauth.net/) ([spec](https://indieauth.spec.indieweb.org/)) client and a generic [OAuth2.0](https://www.oauth.com/) ([Auth0.com](https://auth0.com/docs)) client.
 
+This client is compatible with, and requires, [mod_oauth2](https://github.com/OpenIDC/mod_oauth2). See the Setup section for how to configure compatibility.
+
 ## Security Note
 
 This module ***REQUIRES*** Apache to have write access to `indieauth-client-php/.htaccess`
