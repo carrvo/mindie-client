@@ -8,6 +8,7 @@ $client_tos = getenv('CLIENT_PATH') . '/' . getenv('CLIENT_TOS');
 $client_policy = getenv('CLIENT_PATH') . '/' . getenv('CLIENT_POLICY');
 $client_name = getenv('CLIENT_NAME');
 $client_scope = getenv('CLIENT_SCOPE');
+// see the spec https://datatracker.ietf.org/doc/html/draft-ietf-oauth-client-id-metadata-document/)
 $meta = [
 	"issuer" => $issuer,
 	"application_type" => "web",

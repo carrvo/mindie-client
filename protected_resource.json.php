@@ -7,6 +7,7 @@ $client_tos = $client_path . '/' . getenv('CLIENT_TOS');
 $client_policy = $client_path . '/' . getenv('CLIENT_POLICY');
 $client_name = getenv('CLIENT_NAME');
 $client_scope = getenv('CLIENT_SCOPE');
+// see the spec https://datatracker.ietf.org/doc/html/draft-ietf-oauth-resource-metadata
 $meta = [
 	"issuer" => $issuer,
 	"resource" => "$issuer$client_path/oauth-client-server",
