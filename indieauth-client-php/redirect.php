@@ -4,8 +4,8 @@ require __DIR__ . '../vendor/autoload.php';
 $issuer = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
 
 session_start();
-IndieAuth\Client::$clientID = $issuer.'/'.getenv('CLIENT_PATH').'/oauth-client-server';
-IndieAuth\Client::$redirectURL = $issuer.'/'.getenv('CLIENT_PATH').'/redirect';
+IndieAuth\Client::$clientID = $issuer.getenv('CLIENT_PATH').'/oauth-client-server';
+IndieAuth\Client::$redirectURL = $issuer.getenv('CLIENT_PATH').'/redirect';
 
 $stderr = fopen( 'php://stderr', 'w' );
 list($response, $error) = IndieAuth\Client::complete($_GET);
@@ -21,13 +21,13 @@ if($error) {
   // Login succeeded!
   // The library will return the user's profile URL in the property "me"
   $_SESSION['user'] = $response['me'];
-  setcookie('me', $response['me'], 0, '/'.getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
+  setcookie('me', $response['me'], 0, getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
   if(isset($response['response']['access_token'])) {
     // It will also return the full response from the authorization or token endpoint, as well as debug info
     $_SESSION['token'] = $response['response']['access_token'];
-	setcookie('oauth_token', $response['response']['access_token'], 0, '/'.getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
+	setcookie('oauth_token', $response['response']['access_token'], 0, getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
     $_SESSION['scope'] = $response['response']['scope'];
-	setcookie('oauth_scope', $response['response']['scope'], 0, '/'.getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
+	setcookie('oauth_scope', $response['response']['scope'], 0, getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
   }
 
   // The full parsed response from the endpoint will be available as:
@@ -69,7 +69,7 @@ if($error) {
   }
 
   $auth_redirect = $_COOKIE['auth_redirect'];
-  setcookie('auth_redirect', '', -1, '/'.getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
+  setcookie('auth_redirect', '', -1, getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
   header('Location: '.$auth_redirect);
 }
 ?>

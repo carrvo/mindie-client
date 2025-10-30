@@ -6,9 +6,9 @@ else if (isset($_SERVER['HTTP_REFERER'])) {
     $auth_redirect = $_SERVER['HTTP_REFERER'];
 }
 else {
-    $auth_redirect = '/' . getenv('CLIENT_PATH') . '/' . getenv('CLIENT_HOME');
+    $auth_redirect = getenv('CLIENT_PATH') . '/' . getenv('CLIENT_HOME');
 }
-setcookie('auth_redirect', $auth_redirect, 0, '/'.getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
+setcookie('auth_redirect', $auth_redirect, 0, getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
 if (empty(getenv('AUTH_CHALLENGES')) !== true) {
     $challenges = getenv('AUTH_CHALLENGES');
     header("WWW-Authenticate: $challenges", true);

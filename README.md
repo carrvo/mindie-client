@@ -27,7 +27,7 @@ integrity of your system (not grow exponentially in size).
     AliasMatch ^/<client>/redirect$ /usr/src/mindie-client/indieauth-client-php/redirect.php
     AliasMatch ^/<client>/oauth-client-server$ /usr/src/mindie-client/client_id.json.php
     <Location /<client>/>
-	    SetEnv CLIENT_PATH <client>
+	    SetEnv CLIENT_PATH /<client>
 	    AuthType oauth2
 	    AuthName "Hello OAuth"
 	    # set the scopes to request
@@ -125,7 +125,7 @@ If the required endpoints are returning `403 Forbidden` then there is likely ano
 
 Set these in Apache HTTPd config.
 
-- `SetEnv CLIENT_PATH <client>` - for your client ID to be `https://example.com/<client>/`
+- `SetEnv CLIENT_PATH /<client>` - for your client ID to be `https://example.com/<client>/`
 - `SetEnv CLIENT_SCOPE "profile oauth"` - *optional* to set the scopes that will be requested
 - `SetEnv CLIENT_FILESYSTEM_PATH /filesystem/path/to/client/` - so that the `.htaccess` can be updated appropriately (note that if the client does not reside on the filesystem, then this should be set to `/usr/local/src/mindie-client/indieauth-client-php/` due to the aliases that are required)
 - `SetEnv CLIENT_HOME <path/to/homepage>"` - *optional* path (relative to `CLIENT_PATH`) for the client's public webpage
