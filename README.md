@@ -54,7 +54,7 @@ This will setup the following endpoints on your Apache server:
 
 ### Insecure Configuration
 
-If you are choosing to use this isolated from the internet on your homenet, you **MUST** make the additional modification to the [Client.php](https://github.com/indieweb/indieauth-client-php/blob/main/src/IndieAuth/Client.php#L229) to allow the insecure `HTTP`.
+If you are choosing to use this isolated from the internet on your homenet, you **MAY** make the additional modification to the [Client.php](https://github.com/indieweb/indieauth-client-php/blob/main/src/IndieAuth/Client.php#L229) to allow the insecure `HTTP`. This is **not required** if you are using a self-signed certificate--but be warned that your browser will complain until you accept the risk.
 
 ```diff
 /usr/lib/indieauth-client-php/vendor/indieauth/client/src/IndieAuth/Client.php:229
