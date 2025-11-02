@@ -4,6 +4,8 @@ Built upon [IndieAuth Client](indieauth-client-php/README.md) ([source](https://
 
 This client is compatible with, and requires, [mod_oauth2](https://github.com/OpenIDC/mod_oauth2). See the Setup section for how to configure compatibility.
 
+This provides the Client component of [MIndie](https://github.com/carrvo/mindie).
+
 ## Security Note
 
 This module ***REQUIRES*** Apache to have write access to `indieauth-client-php/.htaccess`
