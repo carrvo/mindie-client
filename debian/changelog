@@ -1,3 +1,13 @@
+mindie-client (2.0.0) unstable; urgency=medium
+
+  * support root clients #34 -- BREAKING CHANGE
+  * fixes for README (#28, #32, #27)
+  * minor fixes (#30, #31)
+  * Multi-Authn Compatibility #33
+  * Protected Resource Metadata and scope descriptions #17
+
+ -- carrvo <carrvo@gmail.com>  Wed, 05 Nov 2025 19:17:25 -0700
+
 mindie-client (1.2.2) unstable; urgency=medium
 
   * Migrate to dh_phpcomposer 
