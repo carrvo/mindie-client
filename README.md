@@ -28,6 +28,7 @@ integrity of your system (not grow exponentially in size).
     AliasMatch ^/<client>/login$ /usr/src/mindie-client/indieauth-client-php/login.php
     AliasMatch ^/<client>/redirect$ /usr/src/mindie-client/indieauth-client-php/redirect.php
     AliasMatch ^/<client>/oauth-client-server$ /usr/src/mindie-client/client_id.json.php
+    AliasMatch ^/.well-known/oauth-protected-resource/<client>$ /usr/src/mindie-client/protected_resource.json.php
     <Location /<client>/>
 	    SetEnv CLIENT_PATH /<client>
 	    AuthType oauth2
@@ -122,6 +123,37 @@ If the required endpoints are returning `403 Forbidden` then there is likely ano
 	    </RequireAll>
     </LocationMatch>
 ```
+
+### Protected Resource AND Client ID
+
+Technically, the use of [mod_oauth2](https://github.com/OpenIDC/mod_oauth2)
+defines it as a [protected resource](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-resource-metadata)
+**AND** the use of [IndieAuth Client](https://github.com/indieweb/indieauth-client-php)
+defines it as an [OAuth client](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-client-id-metadata-document/); the third piece being an authorization server between them
+(see [MIndie-IDP](https://github.com/carrvo/mindie-idp) as an example).
+As such, it is an OAuth client who is accessing *itself* as the resource,
+regardless of what document is behind the authorization layer.
+This is an abnormal (and not intended by the specs) situation.
+However, compatibility with [OpenID Connect](https://github.com/OpenIDC/mod_auth_openidc) was not achieved
+([mod_oauth2](https://github.com/OpenIDC/mod_oauth2) was achieved);
+thus the project was developed and shall remain for the time being.
+
+For this to function properly, the following **SHOULD** be added to the client
+```diff
+/usr/src/mindie-client/vendor/indieauth/client/src/IndieAuth/Client.php:83
+      'scope' => $scope,
++      'resource' => self::$clientID,
+/usr/src/mindie-client/vendor/indieauth/client/src/IndieAuth/Client.php:124
+        'code_verifier' => $_SESSION['indieauth_code_verifier'],,
++        'resource' => self::$clientID,
+/usr/src/mindie-client/vendor/indieauth/client/src/IndieAuth/Client.php:131
+        'code_verifier' => $_SESSION['indieauth_code_verifier'],
++        'resource' => self::$clientID,
+```
+
+Key environment variables (`CLIENT_*`) configured under `<Location /<client>/>`
+**SHOULD** also be configured under `<Location /.well-known/oauth-protected-resource/<client>/>`
+as a result of this duality.
 
 ### Environment Variables
 
