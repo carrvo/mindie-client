@@ -160,7 +160,8 @@ as a result of this duality.
 Set these in Apache HTTPd config.
 
 - `SetEnv CLIENT_PATH /<client>` - for your client ID to be `https://example.com/<client>/`
-- `SetEnv CLIENT_SCOPE "profile oauth"` - *optional* to set the scopes that will be requested
+- `SetEnv CLIENT_SCOPE "profile indieauth"` - *optional* to set the scopes that will be requested
+- `SetEnv CLIENT_SCOPE_DESCRIPTIONS '{"profile":"...", "indieauth":"..."}'` - *optional* for the protected resource endpoint to give human-friendly descriptions of the scopes supported
 - `SetEnv CLIENT_FILESYSTEM_PATH /filesystem/path/to/client/` - so that the `.htaccess` can be updated appropriately (note that if the client does not reside on the filesystem, then this should be set to `/usr/local/src/mindie-client/indieauth-client-php/` due to the aliases that are required)
 - `SetEnv CLIENT_HOME <path/to/homepage>"` - *optional* path (relative to `CLIENT_PATH`) for the client's public webpage
 - `SetEnv CLIENT_LOGO <path/to/logo>"` - *optional* path (relative to `CLIENT_PATH`) for the client's public logo image
