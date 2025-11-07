@@ -26,6 +26,7 @@ integrity of your system (not grow exponentially in size).
     ```
     AliasMatch ^/<client>/index$ /usr/src/mindie-client/indieauth-client-php/index.php
     AliasMatch ^/<client>/login$ /usr/src/mindie-client/indieauth-client-php/login.php
+    AliasMatch ^/<client>/logout$ /usr/src/mindie-client/logout.php
     AliasMatch ^/<client>/redirect$ /usr/src/mindie-client/indieauth-client-php/redirect.php
     AliasMatch ^/<client>/oauth-client-server$ /usr/src/mindie-client/client_id.json.php
     AliasMatch ^/.well-known/oauth-protected-resource/<client>$ /usr/src/mindie-client/protected_resource.json.php
@@ -54,6 +55,7 @@ integrity of your system (not grow exponentially in size).
 This will setup the following endpoints on your Apache server:
 - `https://example.com/<client>/index`
 - `https://example.com/<client>/login`
+- `https://example.com/<client>/logout`
 - `https://example.com/<client>/redirect`
 - `https://example.com/<client>/oauth-client-server`
 
@@ -163,6 +165,7 @@ Set these in Apache HTTPd config.
 - `SetEnv CLIENT_SCOPE "profile indieauth"` - *optional* to set the scopes that will be requested
 - `SetEnv CLIENT_SCOPE_DESCRIPTIONS '{"profile":"...", "indieauth":"..."}'` - *optional* for the protected resource endpoint to give human-friendly descriptions of the scopes supported
 - `SetEnv CLIENT_FILESYSTEM_PATH /filesystem/path/to/client/` - so that the `.htaccess` can be updated appropriately (note that if the client does not reside on the filesystem, then this should be set to `/usr/local/src/mindie-client/indieauth-client-php/` due to the aliases that are required)
+- `SetEnv CLIENT_LOGOUT <path/to/logout>"` - *optional* path (relative to `CLIENT_PATH`) for the client's logout page; note that this is the last priority before it gives a default bare-bones logout page
 - `SetEnv CLIENT_HOME <path/to/homepage>"` - *optional* path (relative to `CLIENT_PATH`) for the client's public webpage
 - `SetEnv CLIENT_LOGO <path/to/logo>"` - *optional* path (relative to `CLIENT_PATH`) for the client's public logo image
 - `SetEnv CLIENT_NAME <human friendly>"` - *optional* human friendly name for the IdP to display
