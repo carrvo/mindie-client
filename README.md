@@ -58,6 +58,7 @@ This will setup the following endpoints on your Apache server:
 - `https://example.com/<client>/logout`
 - `https://example.com/<client>/redirect`
 - `https://example.com/<client>/oauth-client-server`
+- `https://example.com/.well-known/oauth-protected-resource/<client>`
 
 ### Support of Multiple Authentication
 
