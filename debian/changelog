@@ -1,3 +1,11 @@
+mindie-client (2.0.1) unstable; urgency=medium
+
+  * minor install fix #45
+  * minor doc fix #49
+  * missing logout #46
+
+ -- carrvo <carrvo@gmail.com>  Thu, 06 Nov 2025 20:36:25 -0700
+
 mindie-client (2.0.0) unstable; urgency=medium
 
   * support root clients #34 -- BREAKING CHANGE
