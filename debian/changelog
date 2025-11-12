@@ -1,3 +1,9 @@
+mindie-client (2.0.2) unstable; urgency=medium
+
+  * minor fix #52
+
+ -- carrvo <carrvo@gmail.com>  Wed, 12 Nov 2025 13:08:31 -0700
+
 mindie-client (2.0.1) unstable; urgency=medium
 
   * minor install fix #45
