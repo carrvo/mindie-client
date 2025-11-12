@@ -64,12 +64,12 @@ if (empty(getenv('AUTH_CHALLENGES')) !== true) {
 	<?php endif; ?>
         <p class="error">You may want to login with <a href="#url-anonymous">Stay Anonymous</a> in the meantime.</p>
     <?php endif; ?>
-    <form action="/<?php echo getenv('CLIENT_PATH') ?>/login" method="post">
+    <form action="<?php echo getenv('CLIENT_PATH') ?>/login" method="post">
     <input id="url" type="url" name="url" placeholder="IndieAuth URI" required autofocus>
     <input class="submit" type="submit" value="Log In">
   </form>
     <?php if (empty(getenv('CLIENT_ANONYMOUS')) !== true) : ?>
-        <form action="/<?php echo getenv('CLIENT_PATH') ?>/login" method="post">
+        <form action="<?php echo getenv('CLIENT_PATH') ?>/login" method="post">
         <input id="url-anonymous" type="url" name="url" value="<?php echo getenv('CLIENT_ANONYMOUS') ?>" required hidden>
         <input class="submit" type="submit" value="Stay Anonymous">
         </form>
