@@ -11,7 +11,7 @@ else {
 setcookie('auth_redirect', $auth_redirect, 0, getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
 if (empty(getenv('AUTH_CHALLENGES')) !== true) {
     $challenges = getenv('AUTH_CHALLENGES');
-    header("WWW-Authenticate: $challenges", true);
+    header("WWW-Authenticate: $challenges", getenv('AUTH_CHALLENGES_OVERRIDE') === "on");
 }
 ?>
 <!DOCTYPE HTML>

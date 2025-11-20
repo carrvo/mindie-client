@@ -175,6 +175,7 @@ Set these in Apache HTTPd config.
 - `SetEnv CLIENT_ANONYMOUS https://example.com/user/anonymous` - *optional* user URI for supporting an additional "Stay Anonymous" login (they *WILL* be able to fill in their own URI) **that will be in effect for all endpoints of the client it is configured on** (this is due to the need to set this value during `/<client>/index` request or redirect during `ErrorDocument`)
 - `SetEnv CLIENT_AUTO_ANONYMOUS https://example.com/user/anonymous` - *optional* user URI for supporting an anonymous login (they *WILL* ***NOT*** be able to fill in their own URI) **that will be in effect for all endpoints of the client it is configured on** (this is due to the need to set this value during `/<client>/index` request or redirect during `ErrorDocument`)
 - `SetEnv AUTH_CHALLENGES "Bearer realm=\"my realm\", Basic realm=\"my realm\""` - *optional* for `index` to send its own `WWW-Authenticate` header with the provided challenge (useful for supporting *both* OAuth, this client, *and* Basic or another Authentication)
+- `SetEnv AUTH_CHALLENGES_OVERRIDE "on"` - *optional* when `index` sends its own `WWW-Authenticate` header, override and replace the header from Apache (by default this is `off`), as opposed to effectively extending it
 
 ### Session Variables
 
