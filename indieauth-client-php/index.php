@@ -11,7 +11,10 @@ else {
 setcookie('auth_redirect', $auth_redirect, 0, getenv('CLIENT_PATH').'/', $_SERVER['HTTP_HOST'], false, false);
 if (empty(getenv('AUTH_CHALLENGES')) !== true) {
     $challenges = getenv('AUTH_CHALLENGES');
-    header("WWW-Authenticate: $challenges", true);
+    // Multiple headers are supported by the spec AND multiple challenges per header are supported by the spec
+    // HTTP spec: https://datatracker.ietf.org/doc/html/rfc7235#section-4.1
+    // Mozilla doc: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/WWW-Authenticate
+    header("WWW-Authenticate: $challenges", getenv('AUTH_CHALLENGES_OVERRIDE') === "on");
 }
 ?>
 <!DOCTYPE HTML>
