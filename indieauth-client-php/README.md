@@ -7,7 +7,12 @@ License: [MIT](LICENSE.txt)
 
 Files are modified versions of the [README](README.md) examples.
 
-Additionally, an anonymous user URI (auto-entry or not) is supported (upon optional Apache HTTPd configuration).
+Additionally:
+    - an anonymous user URI (auto-entry or not) is supported (upon optional Apache HTTPd configuration).
+    - reporting of error messages.
+    - multiple ways to determine where to redirect back to after login success.
+    - input url UX improvement (Copyright: aaronparecki Source: https://aaronparecki.com/2018/06/03/4/url-form-field
+    - custom additional auth challenges.
 
 # IndieAuth Client
 
