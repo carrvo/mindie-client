@@ -4,7 +4,6 @@ set -e
 #DEBHELPER#
 
 cd /usr/src/mindie-client/
-mkdir indieauth-client-php || true
 touch indieauth-client-php/.htaccess
 chgrp www-data indieauth-client-php/.htaccess
 chmod u+r-wx,g+rw-x,o-rwx indieauth-client-php/.htaccess
