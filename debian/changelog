@@ -1,3 +1,9 @@
+mindie-client (2.0.4) unstable; urgency=medium
+
+  * Fix touch during install for #61
+
+ -- carrvo <carrvo@gmail.com>  Thu, 30 Apr 2026 11:11:12 -0600
+
 mindie-client (2.0.3) unstable; urgency=medium
 
   * minor fixes (#56, #57)
